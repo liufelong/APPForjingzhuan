@@ -34,7 +34,7 @@ static RequestTool *requestTool = nil;
 - (void)requsetWithController:(UIViewController *)vc
                            url:(NSString *)url
                           body:(NSDictionary *)body
-                       Success:(void (^)(id result))success
+                       Success:(void (^)(NSDictionary * result))success
                     andFailure:(void(^)(NSString *errorType))failure {
     
     NSDate * today = [NSDate date];

@@ -14,6 +14,6 @@
 
 @property (nonatomic, copy) void(^buttonBlock)(NSInteger tag);
 
-- (void)setButtonView;
+- (void)setButtonViewWithArray:(NSArray *)arr;
 
 @end

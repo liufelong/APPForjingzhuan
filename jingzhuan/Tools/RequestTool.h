@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)requsetWithController:(UIViewController *)vc
                            url:(NSString *)url
                           body:(NSDictionary *)body
-                       Success:(void (^)(id result))success
+                       Success:(void (^)(NSDictionary * result))success
                     andFailure:(void(^)(NSString *errorType))failure;
 
 @end

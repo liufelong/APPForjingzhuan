@@ -22,13 +22,13 @@
 @property (nonatomic,strong) UIImageView *imageView;
 @property (nonatomic,strong) UIButton *pressBtn;
 @property (nonatomic,strong) UIButton *adversBtn;
-@property (copy, nonatomic) NSString *adversUrl;
 
 @property (strong, nonatomic) HomeTopView *topView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomY;
 @property (strong, nonatomic) NSMutableArray *dateArray;
+@property (strong, nonatomic) NSMutableArray *adverstArray;
 
 @property (assign, nonatomic) BOOL isLogin;
 
@@ -87,10 +87,12 @@
                         @{@"title":@"抽奖1",@"cellHight":@"70",@"cellType":@"1"},
                         @{@"title":@"抽奖2",@"cellHight":@"70",@"cellType":@"2"},
                         @{@"title":@"按钮",@"cellHight":@"70",@"cellType":@"3"}]];
+    
     [self requsetDate];
 }
 
 - (void)requsetDate {
+    self.adverstArray = [NSMutableArray new];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *buildVersion = [infoDictionary objectForKey:@"CFBundleVersion"];
     NSString *token = [UserDefaults valueForKey:@"token"]?[UserDefaults valueForKey:@"token"]:@"";
@@ -99,11 +101,20 @@
     NSDictionary *body = @{@"version":buildVersion,
                            @"token":token,
                            @"userId":userId};
-    [[RequestTool tool] requsetWithController:self url:@"pub/config/init" body:body Success:^(id  _Nonnull result) {
+    [[RequestTool tool] requsetWithController:self url:@"pub/config/init" body:body Success:^(NSDictionary *  _Nonnull result) {
         NSArray *openList = result[@"openAdvert"];
-        NSDictionary *openDict = openList[0];
-        [self setLoanchImagewWithDict:openDict];
-        
+        if (openList.count > 0) {
+            NSDictionary *openDict = openList[0];
+            NSString *img = openDict[@"img"];
+            NSString *url = openDict[@"url"];
+            [UserDefaults setValue:img forKey:@"openImgUrl"];
+            [UserDefaults setValue:url forKey:@"openAdvertUrl"];
+        }else {
+            [UserDefaults setValue:@"" forKey:@"openImgUrl"];
+            [UserDefaults setValue:@"" forKey:@"openAdvertUrl"];
+        }
+        NSArray *indexAdvert = result[@"indexAdvert"];
+        [self.adverstArray addObjectsFromArray:indexAdvert];
         NSNumber *boolNum = result[@"isLogin"];
         self.isLogin = [boolNum boolValue];
         if (self.isLogin) {
@@ -119,7 +130,7 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:verPath] options:@{} completionHandler:nil];
             }];
         }
-        
+        [self.tableView reloadData];
     } andFailure:^(NSString * _Nonnull errorType) {
 
     }];
@@ -149,7 +160,7 @@
     }
     __block NSString *title = dict[@"title"];
     if ([title isEqualToString:@"按钮"]) {
-        [cell setButtonView];
+        [cell setButtonViewWithArray:self.adverstArray];
     }else if ([title isEqualToString:@"试玩"]) {
         cell.btnWith.constant = (SCREEN_WIDTH - 32) / 5 * 2;
     }
@@ -164,7 +175,7 @@
             }];
             
         }else if ([title isEqualToString:@"按钮"]) {
-            [self gotoWebController];
+            [self gotoWebControllerWithTag:tag];
         }else {
             [[AlertTool tool] alertWithTitle:@"敬请期待"];
         }
@@ -173,17 +184,21 @@
     return cell;
 }
 
-- (void)gotoWebController {
-    WebViewController *webView = [[WebViewController alloc] init];
-    webView.title = @"这是广告";
-    webView.urlString = @"https://www.baidu.com";
-    [self.navigationController pushViewController:webView animated:YES];
+- (void)gotoWebControllerWithTag:(NSInteger)tag {
+    NSDictionary *dict = self.adverstArray[tag - 1];
+    NSString *url = dict[@"url"];
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
+//    WebViewController *webView = [[WebViewController alloc] init];
+//    webView.title = @"这是广告";
+//    webView.urlString = @"https://www.baidu.com";
+//    [self.navigationController pushViewController:webView animated:YES];
 }
 
 - (void)lanchImage {
     [self.view addSubview:self.imageView];
     self.adversBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.adversBtn addTarget:self action:@selector(adversBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.adversBtn.frame = self.view.bounds;
     [self.view addSubview:self.adversBtn];
     self.pressBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.pressBtn.frame = CGRectMake(self.view.frame.size.width - 65, STATUS_HEIGHT + 10, 50, 30);
@@ -193,6 +208,8 @@
     self.pressBtn.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.pressBtn];
     [self.pressBtn addTarget:self action:@selector(removeProgress) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setLoanchImage];
     
     WS(weakSelf);
     __block NSInteger timeout = 6; // 倒计时时间
@@ -220,13 +237,14 @@
 }
 
 - (void)adversBtnAction {
-    if (self.adversUrl.length > 0) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.adversUrl] options:@{} completionHandler:nil];
+    NSString *advertUrl = [UserDefaults valueForKey:@"openAdvertUrl"];
+    if (advertUrl.length > 0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:advertUrl] options:@{} completionHandler:nil];
     }
 }
 
-- (void)setLoanchImagewWithDict:(NSDictionary *)advert {
-    NSString *imgUrl = advert[@"img"];
+- (void)setLoanchImage {
+    
     NSString *imageName = @"SE.png";
     if (IPHONE_X) {
         imageName = @"Default-iOS11-812h";
@@ -237,14 +255,18 @@
     }else if (IPHONE_6) {
         imageName = @"8.png";
     }
-    self.adversUrl = advert[@"url"];
-    self.adversBtn.frame = self.imageView.frame;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"imageName"]];
+    NSString *imgUrl = [UserDefaults valueForKey:@"openImgUrl"]?[UserDefaults valueForKey:@"openImgUrl"]:@"";
+    if (imgUrl.length > 0) {
+        self.imageView.image = [UIImage imageNamed:imageName];
+    }else {
+       [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"imageName"]];
+    }
 }
 
 - (UIImageView *)imageView {
     if (!_imageView) {
         _imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+        _imageView.backgroundColor = [UIColor whiteColor];
         NSString *imageName = @"SE.png";
         if (IPHONE_X) {
             imageName = @"Default-iOS11-812h";

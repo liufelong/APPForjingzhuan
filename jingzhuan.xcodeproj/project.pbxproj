@@ -979,7 +979,7 @@
 					"$(PROJECT_DIR)/jingzhuanTests",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/jingzhuan/superFiled/Jingzhuan.pch;
+				GCC_PREFIX_HEADER = /Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/superFiled/Jingzhuan.pch;
 				INFOPLIST_FILE = jingzhuan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.datangcloud.picc;
@@ -1004,7 +1004,7 @@
 					"$(PROJECT_DIR)/jingzhuanTests",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = /Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/jingzhuan/superFiled/Jingzhuan.pch;
+				GCC_PREFIX_HEADER = /Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/superFiled/Jingzhuan.pch;
 				INFOPLIST_FILE = jingzhuan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.datangcloud.picc;
