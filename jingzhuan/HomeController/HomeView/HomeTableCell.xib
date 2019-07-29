@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="KGk-i7-Jjw" customClass="HomeTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="378" height="125"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="378" height="124.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLD-ac-Nov">
+                        <rect key="frame" x="12" y="8" width="212" height="108"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="108" id="e9X-wW-eC7"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_try"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3QP-Xo-Nr8"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcU-H5-dhu">
+                        <rect key="frame" x="232" y="8" width="134" height="108"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="108" id="BCc-9F-qUQ"/>
+                            <constraint firstAttribute="width" constant="134" id="zYe-o2-HY5"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_hight "/>
+                        <connections>
+                            <action selector="buttonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8x5-EW-v4E"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uLD-ac-Nov" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="732-bq-izj"/>
+                    <constraint firstAttribute="bottom" secondItem="dcU-H5-dhu" secondAttribute="bottom" constant="8.5" id="BzO-0L-BRT"/>
+                    <constraint firstAttribute="bottom" secondItem="uLD-ac-Nov" secondAttribute="bottom" constant="8.5" id="CJ2-cz-Sqa"/>
+                    <constraint firstAttribute="trailing" secondItem="dcU-H5-dhu" secondAttribute="trailing" constant="12" id="IMY-WX-1b9"/>
+                    <constraint firstItem="dcU-H5-dhu" firstAttribute="leading" secondItem="uLD-ac-Nov" secondAttribute="trailing" constant="8" id="hgC-hS-woQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnWith" destination="zYe-o2-HY5" id="h4y-ay-sec"/>
+            </connections>
+            <point key="canvasLocation" x="63" y="94.5"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="x3W-JA-LB4" customClass="HomeTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="378" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x3W-JA-LB4" id="6hq-uu-uqo">
+                <rect key="frame" x="0.0" y="0.0" width="378" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpV-G0-a5e">
+                        <rect key="frame" x="12" y="5" width="172" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="MH6-zM-vPG"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_1"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="x3W-JA-LB4" eventType="touchUpInside" id="eai-XX-fQC"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1t-Y7-EoB">
+                        <rect key="frame" x="194" y="5" width="172" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="vmx-ou-9U2"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_2"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="x3W-JA-LB4" eventType="touchUpInside" id="LMl-WC-Zsr"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="e1t-Y7-EoB" firstAttribute="top" secondItem="6hq-uu-uqo" secondAttribute="top" constant="5" id="axz-5o-xwd"/>
+                    <constraint firstItem="e1t-Y7-EoB" firstAttribute="width" secondItem="rpV-G0-a5e" secondAttribute="width" id="gO4-2c-ogR"/>
+                    <constraint firstItem="rpV-G0-a5e" firstAttribute="leading" secondItem="6hq-uu-uqo" secondAttribute="leading" constant="12" id="iPr-HY-Rxv"/>
+                    <constraint firstItem="rpV-G0-a5e" firstAttribute="top" secondItem="6hq-uu-uqo" secondAttribute="top" constant="5" id="jH7-9x-eHR"/>
+                    <constraint firstItem="e1t-Y7-EoB" firstAttribute="leading" secondItem="rpV-G0-a5e" secondAttribute="trailing" constant="10" id="k9R-1m-Jcz"/>
+                    <constraint firstAttribute="trailing" secondItem="e1t-Y7-EoB" secondAttribute="trailing" constant="12" id="neZ-ea-wcA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="63" y="242"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="WP0-aJ-lku" customClass="HomeTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="378" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WP0-aJ-lku" id="WRD-Ac-nba">
+                <rect key="frame" x="0.0" y="0.0" width="378" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5m-Dz-xEI">
+                        <rect key="frame" x="12" y="5" width="172" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="CNL-wu-EXA"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_3"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="WP0-aJ-lku" eventType="touchUpInside" id="otR-1R-Spm"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww6-pY-alF">
+                        <rect key="frame" x="194" y="5" width="172" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="nzg-bv-SLe"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="home_4"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="WP0-aJ-lku" eventType="touchUpInside" id="Rhh-hY-d46"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ww6-pY-alF" firstAttribute="width" secondItem="L5m-Dz-xEI" secondAttribute="width" id="HQE-pq-7gW"/>
+                    <constraint firstItem="L5m-Dz-xEI" firstAttribute="top" secondItem="WRD-Ac-nba" secondAttribute="top" constant="5" id="YVf-uW-WWT"/>
+                    <constraint firstItem="ww6-pY-alF" firstAttribute="top" secondItem="WRD-Ac-nba" secondAttribute="top" constant="5" id="ZCu-fq-ZAS"/>
+                    <constraint firstItem="L5m-Dz-xEI" firstAttribute="leading" secondItem="WRD-Ac-nba" secondAttribute="leading" constant="12" id="o7e-ne-TdZ"/>
+                    <constraint firstAttribute="trailing" secondItem="ww6-pY-alF" secondAttribute="trailing" constant="12" id="qtR-Et-ABK"/>
+                    <constraint firstItem="ww6-pY-alF" firstAttribute="leading" secondItem="L5m-Dz-xEI" secondAttribute="trailing" constant="10" id="vD4-C7-ryN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="63" y="363"/>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="OAK-He-Anl" customClass="HomeTableCell">
+            <rect key="frame" x="0.0" y="0.0" width="378" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAK-He-Anl" id="OAp-Rs-U4l">
+                <rect key="frame" x="0.0" y="0.0" width="378" height="69.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNz-L1-f5S">
+                        <rect key="frame" x="0.0" y="0.0" width="378" height="69.5"/>
+                    </scrollView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eNz-L1-f5S" firstAttribute="top" secondItem="OAp-Rs-U4l" secondAttribute="top" id="33k-h7-Mwd"/>
+                    <constraint firstAttribute="bottom" secondItem="eNz-L1-f5S" secondAttribute="bottom" id="ACH-A7-uah"/>
+                    <constraint firstItem="eNz-L1-f5S" firstAttribute="leading" secondItem="OAp-Rs-U4l" secondAttribute="leading" id="PeM-t2-x37"/>
+                    <constraint firstAttribute="trailing" secondItem="eNz-L1-f5S" secondAttribute="trailing" id="l8h-yH-BZg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="scrollView" destination="eNz-L1-f5S" id="sLf-ae-fnC"/>
+            </connections>
+            <point key="canvasLocation" x="63" y="489"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="home_1" width="168" height="60"/>
+        <image name="home_2" width="168" height="60"/>
+        <image name="home_3" width="168" height="60"/>
+        <image name="home_4" width="168" height="60"/>
+        <image name="home_hight " width="130" height="108"/>
+        <image name="home_try" width="211" height="108"/>
+    </resources>
+</document>

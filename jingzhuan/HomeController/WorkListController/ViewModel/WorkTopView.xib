@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WorkTopView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="work_top_bg" translatesAutoresizingMaskIntoConstraints="NO" id="lTr-ud-FjH">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="170"/>
+                    <color key="backgroundColor" red="0.99607843137254903" green="0.64313725490196072" blue="0.011764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="170" id="5ag-64-Kdd"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="work_wj" translatesAutoresizingMaskIntoConstraints="NO" id="fht-2d-XBc">
+                    <rect key="frame" x="247" y="54" width="110" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="UZ1-l7-Oju"/>
+                        <constraint firstAttribute="height" constant="100" id="UlQ-qw-s8V"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="试玩赚钱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCz-Ib-E0b">
+                    <rect key="frame" x="17" y="81" width="97.5" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新用户试玩可得奖金" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uI-7P-cQz">
+                    <rect key="frame" x="17" y="115" width="147" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="oCz-Ib-E0b" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="2tm-eI-ZWK"/>
+                <constraint firstItem="fht-2d-XBc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="54" id="4eU-s7-OHa"/>
+                <constraint firstItem="lTr-ud-FjH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="EYS-bt-kP1"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="fht-2d-XBc" secondAttribute="trailing" constant="18" id="NU3-Hn-Aeo"/>
+                <constraint firstItem="lTr-ud-FjH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="PBZ-we-I7E"/>
+                <constraint firstItem="oCz-Ib-E0b" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="81" id="Pjf-a5-Nr3"/>
+                <constraint firstItem="9uI-7P-cQz" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="17" id="RwT-XM-Kxk"/>
+                <constraint firstItem="9uI-7P-cQz" firstAttribute="top" secondItem="oCz-Ib-E0b" secondAttribute="bottom" constant="5" id="Um3-OX-QyW"/>
+                <constraint firstItem="lTr-ud-FjH" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="WwW-h0-ixM"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="34.399999999999999" y="26.086956521739133"/>
+        </view>
+        <view contentMode="scaleToFill" id="tLf-Uh-oH6" customClass="WorkTopView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCq-be-fww">
+                    <rect key="frame" x="15" y="18" width="48" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="UCq-be-fww" firstAttribute="leading" secondItem="0n2-vl-WWe" secondAttribute="leading" constant="15" id="Gr4-nD-kUr"/>
+                <constraint firstItem="UCq-be-fww" firstAttribute="centerY" secondItem="tLf-Uh-oH6" secondAttribute="centerY" constant="5" id="pax-OL-Czf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="0n2-vl-WWe"/>
+            <connections>
+                <outlet property="titleLabel" destination="UCq-be-fww" id="WKd-Pd-WY9"/>
+            </connections>
+            <point key="canvasLocation" x="32.799999999999997" y="201.04947526236884"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="work_top_bg" width="375" height="164"/>
+        <image name="work_wj" width="110" height="100"/>
+    </resources>
+</document>
