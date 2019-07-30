@@ -61,7 +61,7 @@
                                    @"randstr":resultJSON[@"randstr"],
                                    @"userIp":[self getIPAddress:YES],
                                    @"type":@"1"};
-            [[RequestTool tool] requsetWithController:self url:@"pub/user/smsCaptcha" body:body Success:^(NSDictionary *  _Nonnull result) {
+            [[RequestTool tool] requsetWithController:self url:@"pub/user/smsCaptcha" body:body Success:^(id  _Nonnull result) {
                 [self timeDown];
                 NSString *msg = result[@"msg"];
                 [SVProgressHUD showSuccessWithStatus:msg];
@@ -96,7 +96,7 @@
                            @"udid":uuid,
                            @"idfa":idfa,
                            @"pushId":@"abcd1234"};//预留字段
-    [[RequestTool tool] requsetWithController:self url:@"pub/user/login" body:body Success:^(NSDictionary *  _Nonnull result) {
+    [[RequestTool tool] requsetWithController:self url:@"pub/user/login" body:body Success:^(id  _Nonnull result) {
         [UserDefaults setValue:result[@"userId"] forKey:@"userId"];
         [UserDefaults setValue:result[@"token"] forKey:@"token"];
         if (self.loginSuccess) {

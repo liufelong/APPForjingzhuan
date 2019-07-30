@@ -34,7 +34,7 @@ static RequestTool *requestTool = nil;
 - (void)requsetWithController:(UIViewController *)vc
                            url:(NSString *)url
                           body:(NSDictionary *)body
-                       Success:(void (^)(NSDictionary * result))success
+                       Success:(void (^)(id  _Nonnull result))success
                     andFailure:(void(^)(NSString *errorType))failure {
     
     NSDate * today = [NSDate date];
@@ -66,6 +66,7 @@ static RequestTool *requestTool = nil;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
         NSString *resultString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
         NSLog(@"%@--->%@",urlStr,resultString);
+        
 //        NSString *jsADS = @"W8XX9RmxnwSZ26C0zDp7DIgxySvpymdrlRUJ76Pcfgy5Gd/lt5gsJP39Lrpm MEEk";
 //        NSDictionary *adsDict = [EncryptClass decryptWithString:jsADS];
 //        NSLog(@"解密 %@",adsDict);

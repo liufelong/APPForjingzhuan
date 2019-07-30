@@ -101,7 +101,7 @@
     NSDictionary *body = @{@"version":buildVersion,
                            @"token":token,
                            @"userId":userId};
-    [[RequestTool tool] requsetWithController:self url:@"pub/config/init" body:body Success:^(NSDictionary *  _Nonnull result) {
+    [[RequestTool tool] requsetWithController:self url:@"pub/config/init" body:body Success:^(id  _Nonnull result) {
         NSArray *openList = result[@"openAdvert"];
         if (openList.count > 0) {
             NSDictionary *openDict = openList[0];
@@ -115,7 +115,7 @@
         }
         NSArray *indexAdvert = result[@"indexAdvert"];
         [self.adverstArray addObjectsFromArray:indexAdvert];
-        NSNumber *boolNum = result[@"isLogin"];
+        NSString *boolNum = result[@"isLogin"];
         self.isLogin = [boolNum boolValue];
         if (self.isLogin) {
             [self.topView.loginBtn setTitle:@"" forState:UIControlStateNormal];
@@ -256,7 +256,7 @@
         imageName = @"8.png";
     }
     NSString *imgUrl = [UserDefaults valueForKey:@"openImgUrl"]?[UserDefaults valueForKey:@"openImgUrl"]:@"";
-    if (imgUrl.length > 0) {
+    if (imgUrl.length < 3) {
         self.imageView.image = [UIImage imageNamed:imageName];
     }else {
        [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"imageName"]];
