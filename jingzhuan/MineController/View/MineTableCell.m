@@ -22,6 +22,9 @@
     self.manBtn.selected = NO;
     self.womanBtn.selected = NO;
     sender.selected = YES;
+    if (self.btnBlock) {
+        self.btnBlock(sender.tag);
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

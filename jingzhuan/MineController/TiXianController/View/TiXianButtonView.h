@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TiXianButtonView : UIView
 @property (weak, nonatomic) IBOutlet UIButton *btn;
+@property (copy, nonatomic) void(^buttonBlock)(void);
 
 + (instancetype)buttonView;
 

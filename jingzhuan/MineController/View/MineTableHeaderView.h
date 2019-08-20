@@ -19,6 +19,7 @@
 @property (copy, nonatomic) void(^buttonBlock)(NSInteger tag);
 
 + (instancetype)tableHeaderView;
+- (void)mineHeaderSetMessage:(NSDictionary *)dict;
 + (instancetype)tableHeaderViewForSet;
 
 @end

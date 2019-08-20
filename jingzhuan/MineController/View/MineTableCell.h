@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *manBtn;
 @property (weak, nonatomic) IBOutlet UIButton *womanBtn;
 
+@property (copy, nonatomic) void(^btnBlock)(NSInteger tag);
+
 @end

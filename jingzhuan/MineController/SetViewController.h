@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SetViewController : BaseViewController
 
+@property (strong, nonatomic) NSDictionary *mineMessageDict;
+@property (copy, nonatomic) void(^updateBlock)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END
