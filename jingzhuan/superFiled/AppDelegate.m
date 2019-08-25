@@ -17,7 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    if (![UserDefaults valueForKey:@"token"]) {
+        [UserDefaults setValue:@"" forKey:@"token"];
+        [UserDefaults setValue:@"" forKey:@"userId"];
+    }
     return YES;
 }
 

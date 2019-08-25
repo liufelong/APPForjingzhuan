@@ -10,40 +10,34 @@
 
 @implementation DetailModel
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        [self setDefaultView];
-    }
-    return self;
+- (void)setValue:(id)value forUndefinedKey:(nonnull NSString *)key {}
+- (id)valueForUndefinedKey:(NSString *)key {
+    return @"";
 }
 
-- (void)setDefaultView {
-    self.title = @"提现";
-    self.date = @"2019-09-09 10:00";
-    self.money = @"3.80";
-    
-    int n = arc4random_uniform(3);
-    NSArray *stateArr = @[@"交易中",@"交易成功",@"交易失败",@""];
-    self.stateString = stateArr[n];
-    self.state = [NSString stringWithFormat:@"%d",n + 1];
+- (void)setSource:(NSString *)source {
+    _source = source;
+    switch ([source intValue]) {
+        case 1:
+            _sourceString = @"提现";
+            break;
+        case 2:
+            _sourceString = @"注册";
+            break;
+        case 3:
+            _sourceString = @"任务";
+            break;
+        case 4:
+            _sourceString = @"奖励";
+            break;
+        default:
+            break;
+    }
 }
 
 @end
 
 @implementation GroupModel
 
-- (instancetype) init {
-    self = [super init];
-    if (self) {
-        self.groupTitle = @"";
-        self.cellArray = [NSMutableArray new];
-        for (int i = 0; i < 8; i++) {
-            DetailModel *item = [[DetailModel alloc] init];
-            [self.cellArray addObject:item];
-        }
-    }
-    return self;
-}
 
 @end

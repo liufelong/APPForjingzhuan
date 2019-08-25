@@ -16,9 +16,13 @@
 }
 
 - (void)setModel:(DetailModel *)model {
-    self.titleLabel.text = model.title;
-    self.dateLabel.text = model.date;
-    self.moneyLabel.text = model.money;
+    self.titleLabel.text = model.sourceString;
+    self.dateLabel.text = model.createTime;
+    self.moneyLabel.text = model.amount;
+    self.typeLabel.text = @"-";
+    if ([model.type isEqualToString:@"1"]) {
+        self.typeLabel.text = @"+";
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -10,11 +10,12 @@
 
 @interface DetailModel : NSObject
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *date;
-@property (nonatomic, copy) NSString *money;
-@property (nonatomic, copy) NSString *stateString;
-@property (nonatomic, copy) NSString *state;
+@property (nonatomic, copy) NSString *source;
+@property (nonatomic, copy) NSString *sourceString;
+@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, copy) NSString *amount;
+@property (nonatomic, copy) NSString *typeString;
+@property (nonatomic, copy) NSString *type;//1收入 2支出
 
 @end
 

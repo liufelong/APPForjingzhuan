@@ -56,9 +56,16 @@ static RequestTool *requestTool = nil;
         url = @"pub/config/advert";
     }
     
+    NSString *showMessage = parameters[@"showMessage"];//@"请稍后...";
+    if (showMessage.length > 0) {
+        [parameters removeObjectForKey:@"showMessage"];
+    }else {
+        showMessage = @"请稍后...";
+    }
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@%@",urlSheme,url];
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-    [SVProgressHUD showWithStatus:@"请稍后..."];
+    [SVProgressHUD showWithStatus:showMessage];
     [manager POST:urlStr parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

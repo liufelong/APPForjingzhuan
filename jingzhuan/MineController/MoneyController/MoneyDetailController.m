@@ -12,10 +12,13 @@
 #import "MoneyDetailCell.h"
 
 #import "DetailModel.h"
+#import <MJRefresh.h>
 
 @interface MoneyDetailController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tableArray;
+
+@property (assign, nonatomic) NSInteger page;
 @end
 
 @implementation MoneyDetailController
@@ -24,15 +27,48 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.tableArray = [NSMutableArray new];
-    for (int i = 0; i < 8; i++) {
-        DetailModel *item = [[DetailModel alloc] init];
-        [self.tableArray addObject:item];
-    }
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.page = 1;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self requestDateFirstPage:YES];
+    }];
+    [self.tableView.mj_header beginRefreshing];
     
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self requestDateFirstPage:NO];
+    }];
     [self.tableView reloadData];
+}
+
+- (void)requestDateFirstPage:(BOOL)isFirst {
+    if (isFirst) {
+        self.page = 1;
+        [self.tableArray removeAllObjects];
+    }
+    NSDictionary *body = @{@"pageNumber":[NSString stringWithFormat:@"%ld",self.page],
+                           @"token":[UserDefaults valueForKey:@"token"],
+                           @"userId":[UserDefaults valueForKey:@"userId"]};
+    [[RequestTool tool] requsetWithController:self url:@"pub/user/billInfo" body:body Success:^(id  _Nonnull result) {
+        [self endRefrish];
+        NSArray *billList = result[@"billList"];
+        for (NSDictionary *dict in billList) {
+            DetailModel *item = [[DetailModel alloc] init];
+            [item setValuesForKeysWithDictionary:dict];
+            [self.tableArray addObject:item];
+        }
+        [self.tableView reloadData];
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [self endRefrish];
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
+}
+
+- (void)endRefrish {
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

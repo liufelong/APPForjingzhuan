@@ -76,10 +76,10 @@
 
 - (IBAction)loginAction:(UIButton *)sender {
     [self.view endEditing:YES];
-    NSString *idfa = [[NSUserDefaults standardUserDefaults] valueForKey:@"IDFA"];
+    NSString *idfa = [UserDefaults valueForKey:@"IDFA"];
     if (idfa.length < 1) {
         idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-        [[NSUserDefaults standardUserDefaults] setValue:idfa forKey:@"IDFA"];
+        [UserDefaults setValue:idfa forKey:@"IDFA"];
     }
     NSString *uuid =  [[UIDevice currentDevice] identifierForVendor].UUIDString;
     NSLog(@"%@",uuid);

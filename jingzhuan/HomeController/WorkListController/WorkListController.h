@@ -10,4 +10,6 @@
 
 @interface WorkListController : BaseViewController
 
+@property (strong, nonatomic) NSDictionary *workDate;
+
 @end

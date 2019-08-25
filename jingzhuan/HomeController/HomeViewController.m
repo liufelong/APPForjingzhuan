@@ -166,13 +166,7 @@
     }
     cell.buttonBlock = ^(NSInteger tag) {
         if ([title isEqualToString:@"试玩"]) {
-            [SVProgressHUD showWithStatus:@"任务匹配中"];
-            [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-            [SVProgressHUD dismissWithDelay:1 completion:^{
-                WorkListController *workList = [[WorkListController alloc] init];
-                workList.title = @"试玩赚钱";
-                [self.navigationController pushViewController:workList animated:YES];
-            }];
+            [self requestWorkListWithTag:tag];
             
         }else if ([title isEqualToString:@"按钮"]) {
             [self gotoWebControllerWithTag:tag];
@@ -182,6 +176,27 @@
     };
     
     return cell;
+}
+
+- (void)requestWorkListWithTag:(NSInteger)tag {
+    NSDictionary *body = @{@"type":[NSString stringWithFormat:@"%ld",tag],
+                           @"showMessage":@"任务匹配中",
+                           @"token":[UserDefaults valueForKey:@"token"],
+                           @"userId":[UserDefaults valueForKey:@"userId"]};
+    
+    [[RequestTool tool] requsetWithController:self url:@"pub/task/taskList" body:body Success:^(id  _Nonnull result) {
+        NSString *title = @"试玩赚钱";
+        if (tag == 2) {
+            title = @"高额礼金";
+        }
+        WorkListController *workList = [[WorkListController alloc] init];
+        workList.title = title;
+        workList.workDate = result;
+        [self.navigationController pushViewController:workList animated:YES];
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
 }
 
 - (void)gotoWebControllerWithTag:(NSInteger)tag {

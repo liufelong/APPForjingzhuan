@@ -23,9 +23,12 @@
 }
 
 - (void)setModel:(WorkModel *)model {
-    self.titleLabel.text = model.title;
-    self.moneyLabel.text = model.money;
-    self.shengyuLabel.text = [NSString stringWithFormat:@"剩余%@份",model.count];
+    self.titleLabel.text = model.appName;
+    self.moneyLabel.text = model.amount;
+    self.shengyuLabel.text = [NSString stringWithFormat:@"剩余%@份",model.total];
+    
+    [self.titleImage sd_setImageWithURL:[NSURL URLWithString:model.appIcon] placeholderImage:[UIImage imageNamed:@"work_logo"]];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
