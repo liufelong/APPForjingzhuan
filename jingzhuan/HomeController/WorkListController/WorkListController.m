@@ -125,6 +125,7 @@
 //        detail.title = @"任务详情";
 //        [self.navigationController pushViewController:detail animated:YES];
 //    }];
+    //测试提交
     if (indexPath.section == 1) {
         WorkModel *model = self.putArray[indexPath.row];
         NSString *idfa = [UserDefaults valueForKey:@"IDFA"];
