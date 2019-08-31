@@ -88,9 +88,8 @@
     self.dateArray = [NSMutableArray arrayWithArray:
                       @[@{@"title":@"试玩",@"cellHight":@"130",@"cellType":@"0"},
                         @{@"title":@"抽奖1",@"cellHight":@"70",@"cellType":@"1"},
-                        @{@"title":@"抽奖2",@"cellHight":@"70",@"cellType":@"2"},
-                        @{@"title":@"按钮",@"cellHight":@"70",@"cellType":@"3"}]];
-    
+                        @{@"title":@"抽奖2",@"cellHight":@"70",@"cellType":@"2"}]];
+                //    @{@"title":@"按钮",@"cellHight":@"70",@"cellType":@"3"}
     [self requsetDate];
 }
 
@@ -160,17 +159,15 @@
     [self.adverstArray enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         HomeBottonBtnView *bottomView = [HomeBottonBtnView standView];
         bottomView.buttonBlock = ^(NSInteger tag) {
-//            if (self.buttonBlock) {
-//                self.buttonBlock(tag);
-//            }
+            [self gotoWebControllerWithTag:tag];
         };
         bottomView.frame = CGRectMake(SCREEN_WIDTH * idx, 0, SCREEN_WIDTH, 70);
         bottomView.bottomBtn.tag = idx + 1;
         NSString *img = obj[@"img"];
         [bottomView.bottomBtn sd_setImageWithURL:[NSURL URLWithString:img] forState:UIControlStateNormal];
-        UIView *bgView = [[UIView alloc] initWithFrame:bottomView.frame];
-        [bgView addSubview:bottomView];
-        [self.scrollView addSubview:bgView];
+//        UIView *bgView = [[UIView alloc] initWithFrame:bottomView.frame];
+//        [bgView addSubview:bottomView];
+        [self.scrollView addSubview:bottomView];
     }];
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * self.adverstArray.count, 70);
 }
