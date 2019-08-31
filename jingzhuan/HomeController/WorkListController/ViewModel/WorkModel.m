@@ -10,6 +10,18 @@
 
 @implementation WorkModel
 
+- (void)setTotal:(NSString *)total {
+    _total = [NSString stringWithFormat:@"%@",total];
+}
+
+- (void)setAmount:(NSString *)amount {
+    _amount = [NSString stringWithFormat:@"%@",amount];
+}
+
+- (void)setInterfaceType:(NSString *)interfacetype {
+    _interfacetype = [NSString stringWithFormat:@"%@",interfacetype];
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     
 }

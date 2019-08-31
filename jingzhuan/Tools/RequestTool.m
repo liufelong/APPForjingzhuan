@@ -81,7 +81,7 @@ static RequestTool *requestTool = nil;
         if ([code isEqualToString:@"1111"]) {
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             [vc presentViewController:loginVC animated:YES completion:nil];
-        }else if ([code isEqualToString:@"0000"]){
+        }else if ([@"0000,7777" containsString:code]){
             success(dict);
         }else {//if ([code isEqualToString:@"0001"])
             NSString *massage = dict[@"msg"];

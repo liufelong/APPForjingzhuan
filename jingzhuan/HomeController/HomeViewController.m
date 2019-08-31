@@ -25,9 +25,9 @@
 
 @property (strong, nonatomic) HomeTopView *topView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomY;
+@property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) NSMutableArray *dateArray;
+//底部广告
 @property (strong, nonatomic) NSMutableArray *adverstArray;
 
 @property (assign, nonatomic) BOOL isLogin;
@@ -39,9 +39,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoney) name:@"updataMoney" object:nil];
     [self lanchImage];
     self.isLogin = NO;
-    self.bottomY.constant = TAB_SAFE_HEIGHT;
     self.view.backgroundColor = [UIColor whiteColor];
     self.topView = [HomeTopView viewStand];
     self.topView.headerImage.hidden = YES;
@@ -82,6 +82,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 70)];
+    self.scrollView.pagingEnabled = YES;
+    
     self.dateArray = [NSMutableArray arrayWithArray:
                       @[@{@"title":@"试玩",@"cellHight":@"130",@"cellType":@"0"},
                         @{@"title":@"抽奖1",@"cellHight":@"70",@"cellType":@"1"},
@@ -89,6 +92,18 @@
                         @{@"title":@"按钮",@"cellHight":@"70",@"cellType":@"3"}]];
     
     [self requsetDate];
+}
+
+
+- (void)updateMoney {
+    NSDictionary *body = @{@"token":[UserDefaults valueForKey:@"token"],
+                           @"userId":[UserDefaults valueForKey:@"userId"]};
+    [[RequestTool tool] requsetWithController:self url:@"pub/user/userInfo" body:body Success:^(id  _Nonnull result) {
+        [self.topView setMessageWith:result];
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
 }
 
 - (void)requsetDate {
@@ -115,6 +130,7 @@
         }
         NSArray *indexAdvert = result[@"indexAdvert"];
         [self.adverstArray addObjectsFromArray:indexAdvert];
+        [self scrollReloadView];
         NSString *boolNum = result[@"isLogin"];
         self.isLogin = [boolNum boolValue];
         if (self.isLogin) {
@@ -136,12 +152,45 @@
     }];
 }
 
+- (void)scrollReloadView {
+    NSArray *views = [self.scrollView subviews];
+    for (UIView *view in views) {
+        [view removeFromSuperview];
+    }
+    [self.adverstArray enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HomeBottonBtnView *bottomView = [HomeBottonBtnView standView];
+        bottomView.buttonBlock = ^(NSInteger tag) {
+//            if (self.buttonBlock) {
+//                self.buttonBlock(tag);
+//            }
+        };
+        bottomView.frame = CGRectMake(SCREEN_WIDTH * idx, 0, SCREEN_WIDTH, 70);
+        bottomView.bottomBtn.tag = idx + 1;
+        NSString *img = obj[@"img"];
+        [bottomView.bottomBtn sd_setImageWithURL:[NSURL URLWithString:img] forState:UIControlStateNormal];
+        UIView *bgView = [[UIView alloc] initWithFrame:bottomView.frame];
+        [bgView addSubview:bottomView];
+        [self.scrollView addSubview:bgView];
+    }];
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * self.adverstArray.count, 70);
+}
+
+#pragma mark tableView
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dateArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 70;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return self.scrollView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -209,6 +258,7 @@
 //    [self.navigationController pushViewController:webView animated:YES];
 }
 
+#pragma mark - 启动图片
 - (void)lanchImage {
     [self.view addSubview:self.imageView];
     self.adversBtn = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -10,16 +10,16 @@
 
 @interface WorkModel : NSObject
 
-@property (nonatomic, copy) NSString *tId;
-@property (nonatomic, copy) NSString *appName;
-@property (nonatomic, copy) NSString *appId;
-@property (nonatomic, copy) NSString *appIcon;
+@property (nonatomic, copy) NSString *tid;
+@property (nonatomic, copy) NSString *appname;
+@property (nonatomic, copy) NSString *appid;
+@property (nonatomic, copy) NSString *appicon;
 @property (copy, nonatomic) NSString *total;//剩余数量
 @property (nonatomic, copy) NSString *amount;//价格
 
 @property (nonatomic, copy) NSString *keyword;
 @property (nonatomic, copy) NSString *guidance;//引导语
-@property (nonatomic, copy) NSString *advertiserId;
-@property (nonatomic, copy) NSString *interfaceType;//广告主任务类型（1快速任务；2回调任务
+@property (nonatomic, copy) NSString *advertiserid;
+@property (nonatomic, copy) NSString *interfacetype;//广告主任务类型（1快速任务；2回调任务
 
 @end

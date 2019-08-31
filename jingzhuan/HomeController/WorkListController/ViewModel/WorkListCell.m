@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.titleImage.layer.masksToBounds = YES;
+    self.titleImage.layer.cornerRadius = 4;
+    
     self.bgView.layer.shadowColor = [UIColor blackColor].CGColor;
     self.bgView.layer.shadowOffset = CGSizeMake(0,0);
     self.bgView.layer.shadowRadius = 3;
@@ -23,12 +26,11 @@
 }
 
 - (void)setModel:(WorkModel *)model {
-    self.titleLabel.text = model.appName;
+    self.titleLabel.text = model.appname;
     self.moneyLabel.text = model.amount;
     self.shengyuLabel.text = [NSString stringWithFormat:@"剩余%@份",model.total];
     
-    [self.titleImage sd_setImageWithURL:[NSURL URLWithString:model.appIcon] placeholderImage:[UIImage imageNamed:@"work_logo"]];
-    
+    [self.titleImage sd_setImageWithURL:[NSURL URLWithString:model.appicon] placeholderImage:[UIImage imageNamed:@"work_logo"]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

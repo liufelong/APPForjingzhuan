@@ -7,7 +7,10 @@
 //
 
 #import "BaseViewController.h"
+#import "WorkModel.h"
 
 @interface WorkDetailController : BaseViewController
+
+@property (strong, nonatomic) WorkModel *model;
 
 @end

@@ -36,7 +36,7 @@
         [bgView addSubview:bottomView];
         [self.scrollView addSubview:bgView];
     }];
-    
+    self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * arr.count, 70);
 }
 
 - (IBAction)buttonAction:(UIButton *)sender {
