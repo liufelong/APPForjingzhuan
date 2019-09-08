@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *source;
 @property (nonatomic, copy) NSString *sourceString;
-@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic, copy) NSString *createtime;
 @property (nonatomic, copy) NSString *amount;
 @property (nonatomic, copy) NSString *typeString;
 @property (nonatomic, copy) NSString *type;//1收入 2支出

@@ -51,10 +51,12 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self loadDate];
     self.dateArray = [NSMutableArray arrayWithArray:@[@{@"img":@"mine_money",@"title":@"收支明细"},
                                                       @{@"img":@"mine_about",@"title":@"关于净赚"},
-                                                      @{@"img":@"mine_set",@"title":@"设置"}]];
+                                                      @{@"img":@"mine_set",@"title":@"设置"},
+                                                      @{@"img":@"mine_set",@"title":@"退出"}]];
     [self.tableView reloadData];
 }
 
@@ -78,20 +80,23 @@
     return self.dateArray.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identifier = @"MineTableCell";
+    NSDictionary *dict = self.dateArray[indexPath.row];
+    NSString *title = dict[@"title"];
     MineTableCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] [0];
+        int tag = [title isEqualToString:@"退出"]?3:0;
+        cell = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil] [tag];
     }
-    NSDictionary *dict = self.dateArray[indexPath.row];
-    cell.imgView.image = [UIImage imageNamed:dict[@"img"]];
-    cell.titleLabel.text = dict[@"title"];
     
+    cell.imgView.image = [UIImage imageNamed:dict[@"img"]];
+    cell.titleLabel.text = title;
+    
+    cell.btnBlock = ^(NSInteger tag) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"signOut" object:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+    };
     return cell;
 }
 

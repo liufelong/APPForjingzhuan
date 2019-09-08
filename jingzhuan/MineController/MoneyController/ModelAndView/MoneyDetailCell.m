@@ -17,7 +17,7 @@
 
 - (void)setModel:(DetailModel *)model {
     self.titleLabel.text = model.sourceString;
-    self.dateLabel.text = model.createTime;
+    self.dateLabel.text = model.createtime;
     self.moneyLabel.text = model.amount;
     self.typeLabel.text = @"-";
     if ([model.type isEqualToString:@"1"]) {

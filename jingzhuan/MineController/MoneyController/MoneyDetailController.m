@@ -31,14 +31,15 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.page = 1;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self requestDateFirstPage:YES];
-    }];
-    [self.tableView.mj_header beginRefreshing];
-    
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [self requestDateFirstPage:NO];
-    }];
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [self requestDateFirstPage:YES];
+//    }];
+//    [self.tableView.mj_header beginRefreshing];
+//
+//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        [self requestDateFirstPage:NO];
+//    }];
+    [self requestDateFirstPage:YES];
     [self.tableView reloadData];
 }
 

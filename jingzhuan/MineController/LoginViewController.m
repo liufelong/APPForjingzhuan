@@ -46,12 +46,18 @@
     self.bgView.clipsToBounds = NO;
     
     self.topY.constant = -STATUS_HEIGHT;
-    self.phoneTextField.text = @"13800138000";
+//    self.phoneTextField.text = @"13800138000";
 }
 
 //获取验证码
 - (IBAction)getCodeAction:(UIButton *)sender {
     [self.view endEditing:YES];
+    if ((self.phoneTextField.text.length != 11) || (![self.phoneTextField.text hasPrefix:@"1"])) {
+        [SVProgressHUD showErrorWithStatus:@"手机号码输入错误"];
+        [SVProgressHUD dismissWithDelay:3];
+        return;
+    }
+    
     [[TCWebCodesBridge sharedBridge] loadTencentCaptcha:self.view appid:@"2026296478" callback:^(NSDictionary *resultJSON) {
         NSLog(@"%@",resultJSON);
         NSString *ticket = resultJSON[@"ticket"];
@@ -73,9 +79,19 @@
     }];
 }
 
+- (IBAction)cancelAction:(UIButton *)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (IBAction)loginAction:(UIButton *)sender {
     [self.view endEditing:YES];
+    
+    if ((self.phoneTextField.text.length != 11) || (![self.phoneTextField.text hasPrefix:@"1"])) {
+        [SVProgressHUD showErrorWithStatus:@"手机号码输入错误"];
+        [SVProgressHUD dismissWithDelay:3];
+        return;
+    }
+    
     NSString *idfa = [UserDefaults valueForKey:@"IDFA"];
     if (idfa.length < 1) {
         idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
@@ -99,9 +115,7 @@
     [[RequestTool tool] requsetWithController:self url:@"pub/user/login" body:body Success:^(id  _Nonnull result) {
         [UserDefaults setValue:result[@"userId"] forKey:@"userId"];
         [UserDefaults setValue:result[@"token"] forKey:@"token"];
-        if (self.loginSuccess) {
-            self.loginSuccess();
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loginSuccess" object:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
     } andFailure:^(NSString * _Nonnull errorType) {
         [SVProgressHUD showErrorWithStatus:errorType];

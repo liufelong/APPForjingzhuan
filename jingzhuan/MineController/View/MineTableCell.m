@@ -26,6 +26,13 @@
         self.btnBlock(sender.tag);
     }
 }
+- (IBAction)signOutAction:(UIButton *)sender {
+    [UserDefaults setValue:@"" forKey:@"userId"];
+    [UserDefaults setValue:@"" forKey:@"token"];
+    if (self.btnBlock) {
+        self.btnBlock(1);
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

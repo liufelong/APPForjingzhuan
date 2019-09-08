@@ -40,15 +40,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateMoney) name:@"updataMoney" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(signOut) name:@"signOut" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:@"loginSuccess" object:nil];
+    
     [self lanchImage];
     self.isLogin = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.topView = [HomeTopView viewStand];
     self.topView.headerImage.hidden = YES;
     [self.topView.loginBtn setTitle:@"立即登录" forState:UIControlStateNormal];
-    __block HomeTopView *blockView = self.topView;
+
     WS(weakSelf);
     self.topView.buttonBlock = ^(NSInteger tag) {
+        if (tag != 4) {
+            if (!weakSelf.isLogin) {
+                LoginViewController *login = [[LoginViewController alloc] init];
+                [weakSelf presentViewController:login animated:YES completion:nil];
+                return;
+            }
+        }
         if (tag == 1) {
             //提现
             TiXianTypeViewController *txVC = [[TiXianTypeViewController alloc] init];
@@ -65,12 +75,7 @@
                 [weakSelf.navigationController pushViewController:mine animated:YES];
             }else {
                 LoginViewController *login = [[LoginViewController alloc] init];
-                login.loginSuccess = ^{
-                    weakSelf.isLogin = YES;
-                    [blockView.loginBtn setTitle:@"" forState:UIControlStateNormal];
-                    blockView.headerImage.hidden = NO;
-                };
-                [weakSelf presentViewController:login animated:YES completion:nil];                
+                [weakSelf presentViewController:login animated:YES completion:nil];
             }
             
         }
@@ -89,10 +94,25 @@
                       @[@{@"title":@"试玩",@"cellHight":@"130",@"cellType":@"0"},
                         @{@"title":@"抽奖1",@"cellHight":@"70",@"cellType":@"1"},
                         @{@"title":@"抽奖2",@"cellHight":@"70",@"cellType":@"2"}]];
-                //    @{@"title":@"按钮",@"cellHight":@"70",@"cellType":@"3"}
     [self requsetDate];
 }
 
+- (void)signOut {
+    self.topView.headerImage.hidden = YES;
+    [self.topView.loginBtn setTitle:@"立即登录" forState:UIControlStateNormal];
+    self.isLogin = NO;
+    NSDictionary *dict = @{@"todayMoney":@"0.00",
+                           @"totalMoney":@"0.00",
+                           @"balance":@"0.00"};
+    [self.topView setMessageWith:dict];
+}
+
+- (void)loginSuccess {
+    self.isLogin = YES;
+    self.topView.headerImage.hidden = NO;
+    [self.topView.loginBtn setTitle:@"" forState:UIControlStateNormal];
+    [self updateMoney];
+}
 
 - (void)updateMoney {
     NSDictionary *body = @{@"token":[UserDefaults valueForKey:@"token"],

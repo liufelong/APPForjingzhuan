@@ -41,6 +41,8 @@
 /*!投放中*/
 @property (strong, nonatomic) NSMutableArray *putArray;
 
+@property (assign, nonatomic) BOOL isPush;
+
 @end
 
 @implementation WorkListController
@@ -48,7 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView) name:@"loginSuccess" object:nil];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -59,6 +61,14 @@
     
     [self creatDate];
     [self.tableView reloadData];
+    self.isPush = NO;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (self.isPush) {
+        [self reloadView];
+    }
 }
 
 - (void)creatDate {
@@ -84,6 +94,23 @@
     if (self.putArray.count > 0) {
         [self.tableArray addObject:@{@"groupTitle":@"投放中",@"cellArray":self.putArray}];
     }
+}
+
+- (void)reloadView {
+    NSString *type = [self.titleLabel.text isEqualToString:@"试玩赚钱"]?@"1":@"2";
+    NSDictionary *body = @{@"type":type,
+                           @"token":[UserDefaults valueForKey:@"token"],
+                           @"userId":[UserDefaults valueForKey:@"userId"]};
+    
+    [[RequestTool tool] requsetWithController:self url:@"pub/task/taskList" body:body Success:^(id  _Nonnull result) {
+        self.workDate = result;
+        [self creatDate];
+        [self.tableView reloadData];
+        
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -162,16 +189,12 @@
                                @"mac":[self macaddress],
                                @"showMessage":showMessage};
 
-        WorkDetailController *detailVC = [[WorkDetailController alloc] init];
-        detailVC.title = @"任务详情";
-        detailVC.model = model;
-        [self.navigationController pushViewController:detailVC animated:YES];
-
         [[RequestTool tool] requsetWithController:self url:@"pub/task/taskQuery" body:body Success:^(id  _Nonnull result) {
             NSString *code = result[@"code"];
             if ([code isEqualToString:@"7777"]) {
                 [self userAuthWithModel:model];
             }else {
+                self.isPush = YES;
                 WorkDetailController *detailVC = [[WorkDetailController alloc] init];
                 detailVC.title = @"任务详情";
                 detailVC.model = model;
@@ -183,6 +206,7 @@
             [SVProgressHUD dismissWithDelay:5];
         }];
     }else {
+        self.isPush = YES;
         WorkDetailController *detailVC = [[WorkDetailController alloc] init];
         detailVC.title = @"任务详情";
         detailVC.model = model;

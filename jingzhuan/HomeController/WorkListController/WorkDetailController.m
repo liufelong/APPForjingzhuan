@@ -43,6 +43,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = RGB(0XFEA403);
+    
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancelBtn.frame = CGRectMake(0, 0, 60, 40);
+    [cancelBtn setTitle:@"取消任务" forState:UIControlStateNormal];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [cancelBtn setTitleColor:RGB(0X666666) forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelWorkAction) forControlEvents:UIControlEventTouchDown];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
+    self.navigationItem.rightBarButtonItem = item;
+    
     self.scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 1160);
     UIImageView *bgImag = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1160)];
     bgImag.image = [UIImage imageNamed:@"work_detail_bg"];
@@ -87,18 +98,26 @@
     WorkStepView *third = [WorkStepView viewForThirdView];
     third.frame = CGRectMake(0, 0, SCREEN_WIDTH, 270);
     third.buttonBlock = ^{
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"领取成功" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:^(UIAlertAction * _Nonnull action) {
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }];
-//        [alert addAction:okAction];
-//        [self presentViewController:alert animated:YES completion:nil];
+
         [self taskActive];
     };
     UIView *thirdView = [[UIView alloc] initWithFrame:CGRectMake(0, 850, SCREEN_WIDTH, 270)];
     [thirdView addSubview:third];
     [self.scrollView addSubview:thirdView];
     
+}
+
+- (void)cancelWorkAction {
+    NSDictionary *body = @{@"token":[UserDefaults valueForKey:@"token"],
+                           @"userId":[UserDefaults valueForKey:@"userId"],
+                           @"tId":self.model.tid};
+    [[RequestTool tool] requsetWithController:self url:@"pub/task/taskQuit" body:body Success:^(id  _Nonnull result) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
 }
 
 //打开APP上报信息
@@ -141,18 +160,17 @@
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updataMoney" object:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-//    [[RequestTool tool] requsetWithController:self url:@"pub/task/taskActive" body:self.body Success:^(id  _Nonnull result) {
-//        [SVProgressHUD showSuccessWithStatus:@"领取成功"];
-//        [SVProgressHUD dismissWithDelay:3 completion:^{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updataMoney" object:nil];
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-//        }];
-//    } andFailure:^(NSString * _Nonnull errorType) {
-//        [SVProgressHUD showErrorWithStatus:errorType];
-//        [SVProgressHUD dismissWithDelay:5];
-//    }];
+    
+    [[RequestTool tool] requsetWithController:self url:@"pub/task/taskActive" body:self.body Success:^(id  _Nonnull result) {
+        [SVProgressHUD showSuccessWithStatus:@"领取成功"];
+        [SVProgressHUD dismissWithDelay:3 completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updataMoney" object:nil];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }];
+    } andFailure:^(NSString * _Nonnull errorType) {
+        [SVProgressHUD showErrorWithStatus:errorType];
+        [SVProgressHUD dismissWithDelay:5];
+    }];
 }
 
 //获取Mac地址

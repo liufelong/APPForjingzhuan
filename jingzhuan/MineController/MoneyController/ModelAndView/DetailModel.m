@@ -15,8 +15,16 @@
     return @"";
 }
 
+- (void)setAmount:(NSString *)amount {
+    _amount = [NSString stringWithFormat:@"%@",amount];
+}
+
+- (void)setType:(NSString *)type {
+    _type = [NSString stringWithFormat:@"%@",type];
+}
+
 - (void)setSource:(NSString *)source {
-    _source = source;
+    _source = [NSString stringWithFormat:@"%@",source];
     switch ([source intValue]) {
         case 1:
             _sourceString = @"提现";

@@ -20,13 +20,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "jingzhuan/HomeController/HomeViewController.m"
-            timestampString = "588947776.741006"
+            timestampString = "589639773.797488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "-scrollReloadView"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-updateMoney"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HomeViewController updateMoney]"
+                  moduleName = "jingzhuan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/HomeController/HomeViewController.m"
+                  timestampString = "589637651.778932"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "327">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__33-[HomeViewController updateMoney]_block_invoke"
+                  moduleName = "jingzhuan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/liufeilong/Desktop/APPForjingzhuan/jingzhuan/HomeController/HomeViewController.m"
+                  timestampString = "589637651.781283"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
